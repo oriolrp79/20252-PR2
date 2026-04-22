@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AniTrack — Índice de Anime</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+    <!-- ======================== MENÚ ======================== -->
+    <header>
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <i class="fa-solid fa-film"></i>
+                <span>AniTrack</span>
+            </div>
+            <ul class="navbar-links">
+                <li>
+                    <a href="anime.html" class="active">
+                        <i class="fa-solid fa-list"></i> Anime
+                    </a>
+                </li>
+                <!-- Dropdown de Listas -->
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">
+                        <i class="fa-solid fa-layer-group"></i> Listas
+                        <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <span class="dropdown-header">Mis listas</span>
+                        <a href="listas.html?lista=watching">
+                            <i class="fa-solid fa-tv"></i>
+                            Viendo actualmente
+                            <span class="counter watching-count">0</span>
+                        </a>
+                        <a href="listas.html?lista=planToWatch">
+                            <i class="fa-solid fa-bookmark"></i>
+                            Plan to Watch
+                            <span class="counter plan-count">0</span>
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <a href="video.html">
+                        <i class="fa-solid fa-video"></i> Video
+                    </a>
+                </li>
+                <!-- Dropdown de Usuario -->
+                <li class="dropdown">
+                    <a href="#" class="dropbtn" id="menuButton">
+                        <i class="fa-solid fa-circle-user"></i> Usuario
+                        <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="#" id="logoutButton" class="logout-link">
+                            <i class="fa-solid fa-right-from-bracket"></i> Logout
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ======================== FILTROS ======================== -->
+    <main class="main-content">
+        <section class="filter-section">
+            <h2 class="section-title"><i class="fa-solid fa-filter"></i> Filtros</h2>
+
+            <!-- Géneros (tags clicables) -->
+            <div class="filter-block">
+                <h3>Géneros</h3>
+                <div id="genreFilters" class="genre-filter-list">
+                    <!-- Generado por anime.js -->
+                </div>
+            </div>
+
+            <!-- Tipo, Estado, Puntuación -->
+            <div class="filter-controls">
+                <div class="filter-item">
+                    <label for="typeFilter"><i class="fa-solid fa-tv"></i> Tipo</label>
+                    <select id="typeFilter">
+                        <option value="">Todos</option>
+                        <option value="TV">TV</option>
+                        <option value="Movie">Película</option>
+                        <option value="OVA">OVA</option>
+                        <option value="Special">Especial</option>
+                        <option value="ONA">ONA</option>
+                        <option value="Music">Música</option>
+                    </select>
+                </div>
+
+                <div class="filter-item">
+                    <label for="statusFilter"><i class="fa-solid fa-signal"></i> Estado</label>
+                    <select id="statusFilter">
+                        <option value="">Todos</option>
+                        <option value="airing">En emisión</option>
+                        <option value="complete">Finalizado</option>
+                        <option value="upcoming">Próximamente</option>
+                    </select>
+                </div>
+
+                <div class="filter-item">
+                    <label for="minScoreFilter"><i class="fa-solid fa-star"></i> Puntuación mín.</label>
+                    <input type="number" id="minScoreFilter" min="0" max="10" step="0.5"
+                           placeholder="Ej: 7.5">
+                </div>
+
+                <button id="clearFiltersBtn" class="btn-clear-filters">
+                    <i class="fa-solid fa-xmark"></i> Limpiar filtros
+                </button>
+            </div>
+
+            <!-- Contador de resultados -->
+            <p id="resultCount" class="result-count"></p>
+        </section>
+
+        <!-- ======================== ORDENAMIENTO ======================== -->
+        <div class="sort-bar">
+            <span class="sort-bar-label">
+                <i class="fa-solid fa-arrow-up-wide-short"></i> Ordenar por
+            </span>
+            <div class="sort-bar-buttons" id="sortOrder" data-value="popularity">
+                <button class="btn-sort active" data-sort="popularity">
+                    <i class="fa-solid fa-fire"></i> Popularidad
+                </button>
+                <button class="btn-sort" data-sort="titleAsc">
+                    <i class="fa-solid fa-arrow-down-a-z"></i> A → Z
+                </button>
+                <button class="btn-sort" data-sort="titleDesc">
+                    <i class="fa-solid fa-arrow-up-a-z"></i> Z → A
+                </button>
+                <button class="btn-sort" data-sort="scoreDesc">
+                    <i class="fa-solid fa-star"></i> Puntuación ↓
+                </button>
+                <button class="btn-sort" data-sort="scoreAsc">
+                    <i class="fa-solid fa-star-half-stroke"></i> Puntuación ↑
+                </button>
+            </div>
+        </div>
+
+        <!-- ======================== CARGANDO ======================== -->
+        <div id="loader" class="loader-overlay">
+            <div class="spinner"></div>
+            <p id="loadingProgress">Cargando datos de la API...</p>
+        </div>
+
+        <!-- ======================== GRID DE ANIME ======================== -->
+        <section id="animeContainer" class="anime-grid">
+            <!-- Generado por anime.js -->
+        </section>
+
+        <!-- Botón cargar más -->
+        <div class="load-more-wrap">
+            <button id="loadMoreBtn" class="btn-load-more" style="display:none;">
+                <i class="fa-solid fa-chevron-down"></i> Cargar más
+            </button>
+        </div>
+    </main>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/clases.js"></script>
+    <script src="../js/menu.js"></script>
+    <script src="../js/anime.js"></script>
+</body>
+</html>

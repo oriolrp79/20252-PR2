@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AniTrack — Video</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+    <!-- ======================== MENÚ ======================== -->
+    <header>
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <i class="fa-solid fa-film"></i>
+                <span>AniTrack</span>
+            </div>
+            <ul class="navbar-links">
+                <li>
+                    <a href="anime.html">
+                        <i class="fa-solid fa-list"></i> Anime
+                    </a>
+                </li>
+                <!-- Dropdown de Listas -->
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">
+                        <i class="fa-solid fa-layer-group"></i> Listas
+                        <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <span class="dropdown-header">Mis listas</span>
+                        <a href="listas.html?lista=watching">
+                            <i class="fa-solid fa-tv"></i>
+                            Viendo actualmente
+                            <span class="counter watching-count">0</span>
+                        </a>
+                        <a href="listas.html?lista=planToWatch">
+                            <i class="fa-solid fa-bookmark"></i>
+                            Plan to Watch
+                            <span class="counter plan-count">0</span>
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <a href="video.html" class="active">
+                        <i class="fa-solid fa-video"></i> Video
+                    </a>
+                </li>
+                <!-- Dropdown de Usuario -->
+                <li class="dropdown">
+                    <a href="#" class="dropbtn" id="menuButton">
+                        <i class="fa-solid fa-circle-user"></i> Usuario
+                        <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="#" id="logoutButton" class="logout-link">
+                            <i class="fa-solid fa-right-from-bracket"></i> Logout
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ======================== CONTENIDO ======================== -->
+    <main class="main-content video-page">
+        <div class="video-container">
+            <h1><i class="fa-solid fa-video"></i> Video de presentación</h1>
+            <p class="video-description">
+                Aquí se mostrará el video explicativo de la práctica
+                (máximo 5 minutos / 100 MB, formato .mp4).
+            </p>
+
+            <p class="video-hint" id="videoHint" style="display:none;"></p>
+        </div>
+    </main>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/clases.js"></script>
+    <script src="../js/menu.js"></script>
+
+</body>
+</html>
