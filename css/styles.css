@@ -31,7 +31,7 @@
 
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: var(--bg);
+    background-color: var(--bg-surface);
     color: var(--text);
     min-height: 100vh;
     line-height: 1.6;
@@ -195,7 +195,109 @@ header { position: sticky; top: 0; z-index: 100; }
 /* =====================================================
    PÁGINAS DE AUTENTICACIÓN (Login / Registro)
 ===================================================== */
+.auth-container {
+    text-align: center;
+    background-color: var(--bg-surface);
+    width: 370px;
+    height: 500px;
+    font-size: 0.8em;
+    margin: 30px 567px;
+    border-radius: 10px;
+    border-color: var(--border);
+    border-style: solid;
+    border-width: 2px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
 
+.auth-header {
+    padding-top:30px;
+    padding-bottom: 30px;
+    
+}
+
+.fa-film {
+    font-size: 1.9rem;
+    color: var(--text);
+    margin: 0px 135px 12px 135px;
+    padding: 15px 15px;
+    background-color: var(--primary);
+    border-radius: 100px;
+
+}
+
+.auth-form {
+    text-align:left;
+    margin: 0px 28px;
+}
+
+/*.auth-form*/.auth-container input /*#username, .auth-form #password*/ {
+    width: 310px;
+    height: 40px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    margin-top: 6px;
+    padding-left: 14px;
+    background-color: var(--bg-surface);
+    border-color: var(--border);
+    border-style: solid;
+    border-width: 2px;
+    font-size: .9rem;
+}
+
+.auth-container--wide input {
+    width: 440px;
+
+}
+
+.auth-buttons #loginButton, .auth-buttons #newUserButton {
+    width: 310px;
+    height: 40px;
+    border-radius: 10px;
+    margin-top: 10px;
+    color: var(--text);
+    font-size: .9rem;
+}
+
+#loginButton {
+    background-color: var(--primary);
+    border:none;
+}
+
+#newUserButton {
+    background-color: var(--bg-surface);
+    border-width: 1px;
+    border-color: var(--border);
+    border-style: solid;
+    padding-bottom: 5px;
+}
+.error-msg {
+    color: var(--danger);
+    font-size:.9rem;
+    padding-left: 14px;
+}
+
+.auth-container--wide {
+    width: 500px;
+    text-align: center;
+    background-color: var(--bg-surface);
+    height: 800px;
+    font-size: 0.8em;
+    margin: 30px 505px;
+    border-radius: 10px;
+    border-color: var(--border);
+    border-style: solid;
+    border-width: 2px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.auth-logo .fa-user-plus {
+    font-size: 1.9rem;
+    color: var(--text);
+    margin: 0px 135px 12px 135px;
+    padding: 18px 15px;
+    background-color: var(--primary);
+    border-radius: 100px;
+}
 
 /* =====================================================
    SECCIÓN DE FILTROS
