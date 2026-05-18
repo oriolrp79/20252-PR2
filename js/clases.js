@@ -24,9 +24,78 @@ class Anime {
     #rank;
 
     /* Constructor de la clase Anime */
+    constructor (malId, title, titleJapanese, synopsis, imageUrl, type, episodes, status, score, genres, studios, aired, popularity, rank) {
+        this.#malId = malId;
+        this.#title = title;
+        this.#titleJapanese = titleJapanese;
+        this.#synopsis = synopsis;
+        this.#imageUrl = imageUrl;
+        this.#type = type;
+        this.#episodes = episodes;
+        this.#status = status;
+        this.#score = score;
+        this.#genres = genres;
+        this.#studios = studios;
+        this.#aired = aired;
+        this.#popularity = popularity;
+        this.#rank = rank;
+    }
 
     /* --- Getters --- */
+    get malId() {
+        return this.#malId;
+    }
 
+    get title() {
+        return this.#title;
+    }
+
+    get titleJapanese() {
+        return this.#titleJapanese;
+    }
+
+    get synopsis() {
+        return this.#synopsis;
+    }
+
+    get imageUrl() {
+        return this.#imageUrl;
+    }
+
+    get type() {
+        return this.#type;
+    }
+
+    get episodes() {
+        return this.#episodes;
+    }
+
+    get status() {
+        return this.#status;
+    }
+
+    get score() {
+        return this.#score
+    }
+    get genres() {
+        return this.#genres;
+    }
+
+    get studios() {
+        return this.#studios;
+    }
+
+    get aired() {
+        return this.#aired;
+    }
+
+    get popularity() {
+        return this.#popularity;
+    }
+
+    get rank() {
+        return this.#rank;
+    }
 
     /* --- Setters --- */
 

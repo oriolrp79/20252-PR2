@@ -130,7 +130,7 @@ document.getElementById('saveButton').addEventListener('click', () => {
         usernameError.textContent = 'El nom d\'usuari no pot estar buit';
     } else { usernameError.textContent = '';}
     if (!validPassword){
-        passwordError.textContent = 'La contrasenya ha de tenir mínim 8 caracteres, incluir números, letras y caracteres especiales';
+        passwordError.textContent = 'Mínim 8 caracters, incloure números, lletres i caracters especials';
     } else { passwordError.textContent = '';}
     if (password2User.value===""){
         password2Error.textContent = 'La confirmació de la contrasenya no pot estar buida';

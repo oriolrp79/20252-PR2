@@ -16,11 +16,11 @@ const usernameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
 const errorMsg = document.getElementById('errorMsg');
 //recuperem la info de si està loguejat l'usuari
-const isLogged = sessionStorage.getItem('isLogged');
+let isLogged = sessionStorage.getItem('isLogged');
 
     //COMPROvació de que la info ha quedat guardada en el localStorage
-    //console.log(storedUsername);
-    //console.log(storedPassword);
+   // console.log(storedUsername);
+   // console.log(storedPassword);
 
     // Si hay un usuario logeado, redirigimos a la página indice de Pokemons
     //...
