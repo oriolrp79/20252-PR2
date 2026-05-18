@@ -37,8 +37,9 @@ if (isLogged) {
             window.location.href = 'anime.html';
         } else { 
             //en cas contrari missatge d'error
-            errorMsg.textContent = 'Usuari o contrasenya incorrectes';
-            errorMsg.style.display = 'block';
+            alert('Usuari o contrasenya incorrectes');
+            /*errorMsg.textContent = 'Usuari o contrasenya incorrectes';  //m'agrada més el missatge en errorMsg, però es demana tipus alert
+            errorMsg.style.display = 'block';*/
         }
         
     });

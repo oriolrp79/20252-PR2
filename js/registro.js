@@ -138,23 +138,11 @@ document.getElementById('saveButton').addEventListener('click', () => {
 
     // si totes les dades son vàlides guardarem en el localStorage tota la info i tornarem cap a la pàgina index.html
     if ((nameUser.value.length>0)&&(surnameUser.value.length>0)&&(addressUser.value.length>0)&&(cityUser.value.length>0)&&(postalCodeUser.value.length>0)&&(emailUser.value.length>0)&&(usernameUser.value.length>0)&&(validUsername)&&(passwordUser.value===password2User.value)&&(validPassword)){
-        /* guardem les dades per separat, de moment, a localstorage
-        localStorage.setItem('name', nameUser.value);
-        localStorage.setItem('surname', surnameUser.value);
-        localStorage.setItem('address', addressUser.value);
-        localStorage.setItem('city', cityUser.value);
-        localStorage.setItem('postalCode', postalCodeUser.value);
-        localStorage.setItem('email', emailUser.value);
-        localStorage.setItem('username', usernameUser.value);
-        localStorage.setItem('password', passwordUser.value);*/
-
-        //console.log(localStorage.getItem('username'));  //comprobacions de que ha quedat guardat
-        //console.log(localStorage.getItem('password'));
-
-        const watchingList = new AnimeList([], "Veient actualment", 10); 
+            
+        const watchingList = new AnimeList([], "Veient actualment", 10);  //definim les llistes de l'usuari
         const planList = new AnimeList([], "Llista planificada", Infinity);
         
-        let currentUser = new User (
+        let currentUser = new User (  //creem l'usuari amb la info del formulari
         nameUser.value,
         surnameUser.value,
         addressUser.value,
@@ -167,14 +155,14 @@ document.getElementById('saveButton').addEventListener('click', () => {
         planList
         );
 
-        console.log(currentUser);
+        console.log(currentUser);  //comprovació de que s'ha creat bé
 
-        currentUser.save();  
+        currentUser.save();  //guardem l'objecte de l'usuari a localStorage
 
-const comprobacion = JSON.parse(localStorage.getItem(`user_${usernameUser.value}`));
-console.log("Objeto completo recuperado:", comprobacion); //comprobacions de que ha quedat guardat
+        //console.log(localStorage.getItem('username'));  //comprobacions de que ha quedat guardat per fer login a index.html
+        //console.log(localStorage.getItem('password'));
 
-        //window.location.href = 'index.html'; //redirigim a index.html
+        window.location.href = 'index.html'; //redirigim a index.html
     }
 });
 

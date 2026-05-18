@@ -223,7 +223,7 @@ class AnimeList {
     //...
 
     /** Serializa la lista para localStorage */
-    toJSON() {
+    toJSON() {   //convertim a un format json
         //...
         return {
             items: this.#items,
@@ -363,7 +363,7 @@ constructor (name, surname, address, city, postalCode, email, username, password
     }
 
     /* Añadir las funciones que consideréis necesarias*/
-    toJSON() {
+    toJSON() {   //para convertir l'objecte a un format json
         return {
             name: this.name,           
             surname: this.surname,
