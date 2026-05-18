@@ -138,7 +138,7 @@ document.getElementById('saveButton').addEventListener('click', () => {
 
     // si totes les dades son vàlides guardarem en el localStorage tota la info i tornarem cap a la pàgina index.html
     if ((nameUser.value.length>0)&&(surnameUser.value.length>0)&&(addressUser.value.length>0)&&(cityUser.value.length>0)&&(postalCodeUser.value.length>0)&&(emailUser.value.length>0)&&(usernameUser.value.length>0)&&(validUsername)&&(passwordUser.value===password2User.value)&&(validPassword)){
-        // localstorage
+        /* guardem les dades per separat, de moment, a localstorage
         localStorage.setItem('name', nameUser.value);
         localStorage.setItem('surname', surnameUser.value);
         localStorage.setItem('address', addressUser.value);
@@ -146,10 +146,35 @@ document.getElementById('saveButton').addEventListener('click', () => {
         localStorage.setItem('postalCode', postalCodeUser.value);
         localStorage.setItem('email', emailUser.value);
         localStorage.setItem('username', usernameUser.value);
-        localStorage.setItem('password', passwordUser.value);
-        //console.log(localStorage.getItem('username'));
+        localStorage.setItem('password', passwordUser.value);*/
+
+        //console.log(localStorage.getItem('username'));  //comprobacions de que ha quedat guardat
         //console.log(localStorage.getItem('password'));
-        window.location.href = 'index.html';
+
+        const watchingList = new AnimeList([], "Veient actualment", 10); 
+        const planList = new AnimeList([], "Llista planificada", Infinity);
+        
+        let currentUser = new User (
+        nameUser.value,
+        surnameUser.value,
+        addressUser.value,
+        cityUser.value,
+        postalCodeUser.value,
+        emailUser.value,
+        usernameUser.value,
+        passwordUser.value,
+        watchingList,
+        planList
+        );
+
+        console.log(currentUser);
+
+        currentUser.save();  
+
+const comprobacion = JSON.parse(localStorage.getItem(`user_${usernameUser.value}`));
+console.log("Objeto completo recuperado:", comprobacion); //comprobacions de que ha quedat guardat
+
+        //window.location.href = 'index.html'; //redirigim a index.html
     }
 });
 
