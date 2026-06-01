@@ -154,22 +154,28 @@ document.getElementById('saveButton').addEventListener('click', () => {
         watchingList,
         planList
         );
+ 
+        localStorage.clear();
 
         console.log(currentUser);  //comprovació de que s'ha creat bé
 
         currentUser.save();  //guardem l'objecte de l'usuari a localStorage
+        localStorage.setItem('username', usernameUser.value);
+        localStorage.setItem('password', passwordUser.value);
 
-        //console.log(localStorage.getItem('username'));  //comprobacions de que ha quedat guardat per fer login a index.html
-        //console.log(localStorage.getItem('password'));
+        console.log(localStorage.getItem('username'));  //comprobacions de que ha quedat guardat per fer login a index.html
+        console.log(localStorage.getItem('password'));
 
         window.location.href = 'index.html'; //redirigim a index.html
+
     }
 });
 
+console.log(localStorage.getItem('username'));  //comprobacions de que ha quedat guardat per fer login a index.html
+console.log(localStorage.getItem('password'));
+
 //escoltem el click en el botó de tornar cap a la pagina index.html sense validar el formulari ni guardar res
 document.getElementById('backToLoginButton').addEventListener('click', () => {
-    window.location.href = 'index.html';
+   window.location.href = 'index.html';
 });
 
-
- 
