@@ -171,8 +171,8 @@ document.getElementById('saveButton').addEventListener('click', () => {
     }
 });
 
-console.log(localStorage.getItem('username'));  //comprobacions de que ha quedat guardat per fer login a index.html
-console.log(localStorage.getItem('password'));
+//console.log(localStorage.getItem('username'));  //comprobacions de que ha quedat guardat per fer login a index.html
+//console.log(localStorage.getItem('password'));
 
 //escoltem el click en el botó de tornar cap a la pagina index.html sense validar el formulari ni guardar res
 document.getElementById('backToLoginButton').addEventListener('click', () => {
