@@ -8,7 +8,7 @@
 ===================================================== */
 let allAnime      = [];   // Todos los anime cargados (objetos Anime)
 let filteredAnime = [];   // Anime tras aplicar los filtros activos
-let displayedCount = 0;   // Cuántos se muestran actualmente
+let displayedCount = 24;   // començarem mostrant 24 animes
 let allGenres     = [];   // Lista completa de géneros [{id, name}]
 let selectedGenres = new Set(); // IDs de géneros seleccionados
 let currentUser;          // Objeto User del usuario logueado
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             userData.postalCode, userData.email, userData.username, userData.password, 
             watchingList, planList
         );
-        console.log("Usuari autenticat correctament:", currentUser.username);
+        console.log("Usuari autenticat correctament:", currentUser.username); //comprobació d'usuari autenticatt
     }
     
 
@@ -68,19 +68,62 @@ document.addEventListener('DOMContentLoaded', async function () {
     
 
     // Construir filtros de género
-  //  buildGenreFilters();
+    buildGenreFilters();
 
     // Restaurar filtros si se viene del detalle
   //  restoreFilters();
 
     // Aplicar filtros y renderizar
-   // applyFiltersAndRender();
+    applyFiltersAndRender();
 
     // Eventos de los controles de filtro
-
+    const genreSelect = document.getElementById('typeFilter'); //busquem el select de generes
+    if (genreSelect) {
+        genreSelect.addEventListener('change', function() { //escoltem si hi ha algun canvi d'estat
+            applyFiltersAndRender();   //cridem a la funció per imprimir els animes
+        });
+    }
 
     // Eventos de los botones de ordenamiento
+    const sortButton = document.querySelectorAll('.btn-sort'); //agafem els botons per la class btn-sort
+    const sortDiv = document.getElementById('sortOrder'); //agafem el contenidor dels botons
 
+    for (let i = 0; i < sortButton.length; i++) { 
+        sortButton[i].addEventListener('click', function(){   //escoltem si hi ha algun canvi d'estat per cada botó
+
+            for (let j = 0; j < sortButton.length; j++) { //netegem l'estil de tots els botons
+                sortButton[j].classList.remove('active');
+
+            }
+            sortButton[i].classList.add('active'); //active només el botó clicat
+
+            const newOrder = sortButton[i].getAttribute('data-sort');
+            sortDiv.setAttribute('data-value', newOrder); //guardem el nou ordre al contenidor
+
+
+            applyFiltersAndRender();   //cridem a la funció per imprimir els animes
+
+
+
+        });
+
+    }
+
+    // botons watching i planificat
+    const container= document.getElementById('animeContainer'); //agafem contenidor del DOM
+    
+    container.addEventListener('click', function(e) {  //escoltem clics dins el contenidor animeContainer
+        const animeId = parseInt(e.target.getAttribute('data-id')); //recuperem l'id de l'anime associat al botó clicat
+
+        if (e.target.classList.contains('buttonwatching')) { //si el botó clicat és de class buttonwatching
+            addAnimeToList(animeId,'watching'); //afegim l'anime a la llista watching
+        } else if (e.target.classList.contains('buttonplan')) { //si el botó clicat és de classe buttonplan
+            addAnimeToList(animeId,'plan'); //afegim l'anime a la llista planificats
+        }
+
+
+    });
+    
 
     // Botón "Cargar más"
 
@@ -88,7 +131,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     //dibuixem les targetes dels animes
     renderAnimeCards(filteredAnime);
     
-});
+})
 
 /* =====================================================
    Carga de datos (API + caché localStorage)
@@ -270,6 +313,73 @@ async function loadAnimeList() {
 
 /* Añadir las funciones que consideréis necesarias*/
 
+function buildGenreFilters() {
+    const genreSelect = document.getElementById('typeFilter'); //busquem el contenidor select de gèneres
+
+    genreSelect.innerHTML = '<option value="">Todos los géneros</option>'; //opció per defecte sense filtre
+
+    //fem recerca dels gèneres disponibles
+    let activeGenres = [];
+    for (let i=0; i <allAnime.length; i++){
+        //let anime=allAnime[i];
+
+        for (let j=0; j<allAnime[i].genres.length; j++) {  //mirem dins tots els gèneres de cada anime
+            if (!activeGenres.includes(allAnime[i].genres[j])) {
+                activeGenres.push(allAnime[i].genres[j]);
+            }
+        }
+    
+    }
+    for (let i = 0; i < activeGenres.length; i++) { //crreem les opcions del select a html
+        genreSelect.innerHTML = genreSelect.innerHTML + `<option value="${activeGenres[i]}">${activeGenres[i]}</option>`;
+    }
+}
+
+function applyFiltersAndRender() {
+    const genreFilter = document.getElementById('typeFilter').value; //recuperem el text del select de gèneres
+
+    if (genreFilter === "") {  //si no n'hi ha cap de seleccionat mostrem tot
+        filteredAnime = [...allAnime];
+    } else {
+        filteredAnime = []; //netegem la llista
+        for (let i =0; i < allAnime.length; i++){
+            if (allAnime[i].genres.includes(genreFilter)){  //busquem si el gènere seleccionat encaixa amb el gènere de l'anime
+                filteredAnime.push(allAnime[i]); //i creem la llista filtrada
+            }
+        }
+    
+    }
+
+    //botons d'ordre
+    const sortDiv= document.getElementById('sortOrder');
+    const order= sortDiv.getAttribute('data-value'); //recuperem el tipus d'ordre seleccionat
+
+    filteredAnime.sort(function(a,b) {
+        if (order === "titleAsc") {   //alfabètic ascendent
+            if(a.title < b.title) return -1;
+            if(a.title > b.title) return 1;
+            return 0;
+        } else if (order === "titleDesc") { //alfabètic descendent
+            if(a.title > b.title) return -1;
+            if( a.title < b.title) return 1;
+            return 0;
+        } else if (order === "scoreAsc") { //puntuació ascendent
+            return a.score - b.score;
+
+        } else if (order === "scoreDesc") { //puntuació descendent
+            return b.score - a.score;
+        } else if (order === "popularity") {
+            return a.popularity - b.popularity;  //per defecte per popularitat
+        }
+        return 0;
+    })
+
+
+    renderAnimeCards(filteredAnime); //mostrem
+
+}
+
+
 /* =====================================================
    Tarjetas de Anime
 ===================================================== */
@@ -288,14 +398,14 @@ function renderAnimeCards(animeList) {
             <div class="anime-card">
                 <img src="${anime.imageUrl}" alt="${anime.title}" class="anime-img">
                 <div class="anime-info">
-                    <h3 class="anime-title">${anime.title}</h3>
+                    <h3 class="anime-title">${anime.title}</h3> 
                     <p class="anime-genres"><strong>Gèneres:</strong> ${anime.genres}</p>
-                    <p class="anime-score"><strong>Puntuació:</strong> ⭐ ${anime.score}</p>
+                    <p class="anime-score"><strong>Puntuació:</strong> ${anime.score}</p>
                     <p class="anime-status"><strong>Estat:</strong> ${anime.status}</p>
                 </div>
                 <div class="anime-actions">
-                    <button class="btn-list btn-watching" data-id="${anime.id}">Veient</button>
-                    <button class ="btn-list btn-plan" data-id="${anime.id}">Planificat</button>
+                    <button class="buttonwatching" data-id="${anime.malId}">Veient</button>
+                    <button class ="buttonplan" data-id="${anime.malId}">Planificat</button>
                 </div>
             </div>`;
 
@@ -315,6 +425,42 @@ function renderAnimeCards(animeList) {
 ===================================================== */
 
 /* Añadir las funciones que consideréis necesarias*/
+
+function addAnimeToList (animeId, listType) {  //per afegir un anime a una llista
+
+    let findedAnime = ''; //variable ressetejada
+    for (let i = 0; i < allAnime.length; i++) { //passegem per tots els animes
+        if (allAnime[i].malId === animeId) {   //si el trobem el guardem
+            findedAnime= allAnime[i];
+        }
+    }
+
+    //depenent de la llista l'afegim a una o l'altra
+    if (listType === 'watching') {
+        currentUser.watching.addAnime(findedAnime);
+        //console.log("anime afegit a watching: "+ findedAnime.title); //comprovació
+    } else if (listType === 'plan') {
+        currentUser.planToWatch.addAnime(findedAnime);
+        //console.log("anime afegit a planToWatch: "+ findedAnime.title); //comprovació
+    }
+
+    //per guardar a localstorage creem l0objecte
+    const dataToSave = {
+        name: currentUser.name,
+        surname: currentUser.surname,
+        address: currentUser.address,
+        city: currentUser.city,
+        postalCode: currentUser.postalCode,
+        email: currentUser.email,
+        username: currentUser.username,
+        password: currentUser.password,
+        watching: currentUser.watching.items, 
+        planToWatch: currentUser.planToWatch.items
+    };
+    localStorage.setItem(`user_${currentUser.username}`, JSON.stringify(dataToSave)); //guardem
+
+    
+}
 
 /* =====================================================
    Loader / spinner
