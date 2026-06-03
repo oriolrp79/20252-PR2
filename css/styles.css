@@ -131,7 +131,9 @@ header { position: sticky; top: 0; z-index: 100; }
     z-index: 200;
 }
 
-.dropdown-content.open { display: block; }
+.dropdown.open .dropdown-content {  /*quan dropdown te classe open el dropdown-content es mostra*/
+    display: block; 
+}
 
 .dropdown-content a {
     display: flex;

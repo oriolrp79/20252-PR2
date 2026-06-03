@@ -26,7 +26,7 @@ let isLogged = sessionStorage.getItem('isLogged');
 
     // Si hay un usuario logeado, redirigimos a la página indice de Pokemons
     //...
-if (isLogged) {
+if (sessionStorage.getItem('isLogged') === 'true') {   //mirem si la var isLogged que esta guardadda a sessionstorage es true
     window.location.href = 'anime.html';
 } else {
     // Si no hay un usuario logeado, comprobamos datos de login
