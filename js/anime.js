@@ -158,6 +158,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     //dibuixem les targetes dels animes
     renderAnimeCards(filteredAnime);
     
+    const resultCount = document.getElementById('resultCount'); //agafem el contenidor per imprimir els animes mostrats
+    resultCount.innerHTML= 'Viendo actualmente: ' + currentUser.watching.items.length +' animes.';
 })
 
 /* =====================================================

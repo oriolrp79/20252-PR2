@@ -88,7 +88,7 @@ function renderActiveList() {
                     <p class="anime-status"><strong>Estat:</strong> ${anime.status}</p>
                 </div>
                 <div class="anime-actions">
-                    <button class="button-delete" data-id="${anime.id}">Delete</button> 
+                    <button class="button-delete" data-id="${anime.malId}">Delete</button> 
                     
                 </div>
             </div>`;
@@ -111,7 +111,7 @@ function renderActiveList() {
 function deleteAnimeList() {
     const listData = document.getElementById('listContainer'); //agafem contenidor
     listData.addEventListener('click', function(e) { //escoltem si h ih a click
-        console.log("Se ha hecho clic en algún lugar de la lista:", e.target);
+        
         if (e.target && e.target.classList.contains('button-delete')) {  //si s'ha fet click sobre button-detele
             const animeId = e.target.getAttribute('data-id');  //recuperem l'id de l'anime
 
@@ -123,7 +123,8 @@ function deleteAnimeList() {
             }
 
             for (let i = 0; i < listaActual.length; i++) { //comparem i busquem l'anime per borrar
-                if (String(listaActual[i].id) === String(animeId)) {
+                
+                if (String(listaActual[i].malId) === String(animeId)) {
                     listaActual.splice(i, 1);   //borrem de la llista 1 anime de la posició i amb splice
                     break; //si ho hem trobat parem el for
                 }
