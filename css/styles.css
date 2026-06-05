@@ -31,7 +31,7 @@
 
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: var(--bg-surface);
+    background-color: var(--bg);
     color: var(--text);
     min-height: 100vh;
     line-height: 1.6;
@@ -41,6 +41,11 @@ a  { color: inherit; text-decoration: none; }
 ul { list-style: none; }
 button { cursor: pointer; font-family: inherit; }
 input, select, textarea { font-family: inherit; }
+
+h2 {
+    color: var(--primary);
+    font-size: .9rem;
+}
 
 /* =====================================================
    NAVBAR
@@ -164,8 +169,62 @@ header { position: sticky; top: 0; z-index: 100; }
 ===================================================== */
 .main-content {
     max-width: 1400px;
-    margin: 0 auto;
-    padding: 24px 20px 48px;
+    margin: 20px 195px;
+    padding: 0px 20px 48px;
+    
+    
+}
+
+.filter-section, .lists-header {
+    margin-bottom:30px;
+    background-color: var(--border);
+    border-radius: 15px;
+    padding: 10px 30px;
+}
+
+.filter-controls{
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter-block  {
+    padding-bottom: 15px;
+
+}
+
+.filter-controls select, .filter-controls input{
+    background-color: var(--primary-dark);
+    color: white;
+    border-radius: 10px;
+    padding: 5px 5px 5px 10px;
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+.filter-controls button {
+    border-color: var(--danger);
+    border-radius: 10px;
+    background-color: var(--border);
+    color: var(--danger);
+    padding: 5px 15px 5px 10px;
+}
+
+.sort-bar {
+    display: flex;
+    justify-content:left;
+
+}
+
+.sort-bar-label {
+    padding-right: 15px;
+}
+
+.sort-bar-buttons button {
+    padding: 3px 10px 5px 10px;
+    border-radius: 10px;
+    background-color: var(--primary-dark);
+    color: white;
+    margin-left: 10px;
 }
 
 
@@ -220,7 +279,7 @@ header { position: sticky; top: 0; z-index: 100; }
 .fa-film {
     font-size: 1.9rem;
     color: var(--text);
-    margin: 0px 135px 12px 135px;
+    margin: 0px 0px 12px 0px;
     padding: 15px 15px;
     border-radius: 100px;
     background-image: linear-gradient(to bottom right, var(--primary), var(--secondary));
@@ -332,13 +391,80 @@ input::placeholder {
 /* =====================================================
    GRID DE ANIME
 ===================================================== */
+#animeContainer, #listContainer {
+    display: grid;    /*disposem els animes en files i columnes*/
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 1px;   
+    width: 100%;
+    padding: 15px 0px;
+}
 
+.anime-card {
+    margin:10px 10px;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: var(--border);
+}
+
+.anime-info {
+    padding: 10px;
+    font-size: .9rem;
+}
+
+.anime-genres, .anime-score, .anime-status {
+    font-size: .7rem;
+    color: var(--text-muted);
+}
+
+.score-number {
+    color: var(--success);
+    padding-left: 5px;
+    font-weight: 700;
+}
+
+.anime-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 8px;
+    margin-bottom: 15px;
+}
+.anime-actions button {
+    border-radius:10px;
+    padding: 5px 10px;
+    background-color: var(--primary-dark);
+    color: white;
+}
 
 /* =====================================================
    PÁGINA DE LISTAS
 ===================================================== */
+.lists-header h1 {
+    font-size:1rem;
+    color: var(--primary);
+}
 
+.list-nav button {
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin: 10px 20px;
+    background-color: var(--primary-dark);
+    color: white;
+    font-size: 1rem;
+}
 
+.fa-tv, .fa-bookmark {
+    padding-right: 5px;
+}
+.counter {
+    font-size: 1rem;
+    color: var(--secondary);
+    padding: 15px;
+    margin-left: 10px;
+}
+
+.button-delete {
+    margin-left: 40px;
+}
 /* =====================================================
    PÁGINA DE DETALLE
 ===================================================== */

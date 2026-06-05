@@ -469,7 +469,7 @@ function renderAnimeCards(animeList) {
                 <div class="anime-info">
                     <h3 class="anime-title">${anime.title}</h3> 
                     <p class="anime-genres"><strong>Gèneres:</strong> ${anime.genres}</p>
-                    <p class="anime-score"><strong>Puntuació:</strong> ${anime.score}</p>
+                    <p class="anime-score"><strong>Puntuació:</strong><span class="score-number">${anime.score}</span></p>
                     <p class="anime-status"><strong>Estat:</strong> ${anime.status}</p>
                 </div>
                 <div class="anime-actions">
@@ -507,11 +507,35 @@ function addAnimeToList (animeId, listType) {  //per afegir un anime a una llist
         }
     }
 
+    let existsWatching = false; //reset als booleans per saber si ja existeix un anime que volem sumar
+    let existsPlan = false;
+
+
+    // busquem a watching
+    for (let j = 0; j < currentUser.watching.items.length; j++) {
+        if (String(currentUser.watching.items[j].malId) === String(animeId)) {
+            existsWatching= true;
+            console.log ("ja existeix a watching"); //comprobació
+            break;
+        }
+
+
+    }
+
+    // busquem a  planToWatch
+    for (let k = 0; k < currentUser.planToWatch.items.length; k++) {
+        if (String(currentUser.planToWatch.items[k].malId) === String(animeId)) {
+            existsPlan = true;
+            console.log ("ja existeix a plan"); //comprobació
+            break;
+        }
+    }
+
     //depenent de la llista l'afegim a una o l'altra
-    if (listType === 'watching') {
+    if (listType === 'watching'&& !existsWatching) {
         currentUser.watching.addAnime(findedAnime);
         //console.log("anime afegit a watching: "+ findedAnime.title); //comprovació
-    } else if (listType === 'plan') {
+    } else if (listType === 'plan' && !existsPlan) {
         currentUser.planToWatch.addAnime(findedAnime);
         //console.log("anime afegit a planToWatch: "+ findedAnime.title); //comprovació
     }

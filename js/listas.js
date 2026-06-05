@@ -4,7 +4,7 @@
 
 let currentUser;
 
-//let activeListKey = 'watching'; // Lista activa por defecto, la definim més avall
+var activeListKey; // = 'watching'; // Lista activa por defecto, la definim més avall
 
 /* Añadir las funciones que consideréis necesarias*/
 document.addEventListener('DOMContentLoaded', function () { //carreguem el dom
@@ -40,6 +40,8 @@ document.addEventListener('DOMContentLoaded', function () { //carreguem el dom
     updateListCounters(); //cridem la funció a actualitzar contadors
 
     renderActiveList(); //cridem ala funció per imprimir animes
+
+    deleteAnimeList(); //detectar el botó borrar anime de la llista
 
 });
 
@@ -78,11 +80,11 @@ function renderActiveList() {
         //creem caixa de text amb el codi html
         let cardHTML = `  
             <div class="anime-card">
-                <img src="${anime.image}" alt="${anime.title}" class="anime-img">
+                <img src="${anime.imageUrl}" alt="${anime.title}" class="anime-img">
                 <div class="anime-info">
                     <h3 class="anime-title">${anime.title}</h3> 
                     <p class="anime-genres"><strong>Gèneres:</strong> ${anime.genres}</p>
-                    <p class="anime-score"><strong>Puntuació:</strong> ${anime.score}</p>
+                    <p class="anime-score"><strong>Puntuació:</strong> <span class="score-number">${anime.score}</span></p>
                     <p class="anime-status"><strong>Estat:</strong> ${anime.status}</p>
                 </div>
                 <div class="anime-actions">
@@ -106,6 +108,43 @@ function renderActiveList() {
 /**
  * Eliminar un anime de la lista activa y actualiza la vista.
  */
+function deleteAnimeList() {
+    const listData = document.getElementById('listContainer'); //agafem contenidor
+    listData.addEventListener('click', function(e) { //escoltem si h ih a click
+        console.log("Se ha hecho clic en algún lugar de la lista:", e.target);
+        if (e.target && e.target.classList.contains('button-delete')) {  //si s'ha fet click sobre button-detele
+            const animeId = e.target.getAttribute('data-id');  //recuperem l'id de l'anime
+
+            let listaActual = [];  //llista preparada i l'omplim amb la llista que toqui
+            if (activeListKey === 'watching') {  
+               listaActual = currentUser.watching;
+            } else {
+                listaActual = currentUser.planToWatch;
+            }
+
+            for (let i = 0; i < listaActual.length; i++) { //comparem i busquem l'anime per borrar
+                if (String(listaActual[i].id) === String(animeId)) {
+                    listaActual.splice(i, 1);   //borrem de la llista 1 anime de la posició i amb splice
+                    break; //si ho hem trobat parem el for
+                }
+                
+            }
+
+            //guardem la nova llista a localstorage
+            const currentUsername = localStorage.getItem('username');
+            localStorage.setItem(`user_${currentUsername}`, JSON.stringify(currentUser));
+
+            //actualitzem pantalla amb la llista nova
+            updateListCounters(); // Actualiza números centrales
+            renderActiveList();
+
+            if (typeof updateMenu === 'function') {  //actualiza menú per visualitzar-ho tot
+                updateMenu();
+            }
+        }
+    });
+}
+
 
 
 /* Añadir las funciones que consideréis necesarias*/
