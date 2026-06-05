@@ -219,7 +219,7 @@ header { position: sticky; top: 0; z-index: 100; }
     padding-right: 15px;
 }
 
-.sort-bar-buttons button {
+.sort-bar-buttons button, .btn-load-more {
     padding: 3px 10px 5px 10px;
     border-radius: 10px;
     background-color: var(--primary-dark);
